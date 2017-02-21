@@ -1,0 +1,32 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createUser`(
+    In p_first_name VARCHAR(45),
+    In p_last_name VARCHAR(45),
+    IN p_email VARCHAR(100),
+    IN p_password VARCHAR(45)
+)
+BEGIN
+    if ( select exists (select 1 from student where email = p_email) ) THEN
+     
+        select 'Username Exists !!';
+     
+    ELSE
+     
+        insert into student
+        (
+            first_name,
+            last_name,
+            email,
+            password
+        )
+        values
+        (
+            p_first_name,
+            p_last_name,
+            p_email,
+            p_password
+        );
+     
+    END IF;
+END$$
+DELIMITER ;
